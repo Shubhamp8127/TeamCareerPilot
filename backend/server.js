@@ -16,6 +16,7 @@ import newsletterRoutes from "./routes/newsletterRoutes.js";
 import path from "path";
 
 const app = express();
+const __dirname = path.resolve();
 
 // ================= DATABASE =================
 connectDB();
