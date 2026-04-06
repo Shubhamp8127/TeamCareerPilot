@@ -162,6 +162,7 @@ setTimeout(()=>{
     state:{
       transactionId,
       plan:selectedPlan.name,
+      planId: plan,
       total:finalPrice.toFixed(2),
       originalPrice: total,
       discount,

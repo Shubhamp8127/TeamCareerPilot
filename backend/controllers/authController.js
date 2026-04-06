@@ -23,6 +23,7 @@ const buildUserResponse = (user) => ({
   last_name: user.last_name,
   email: user.email,
   avatar_url: user.avatar || null,
+  plan: user.plan || "Trial",
 });
 
 const issueSessionTokens = async (user, res) => {

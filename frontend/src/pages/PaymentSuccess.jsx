@@ -22,7 +22,7 @@ const formatCurrency = (amount) => {
     return `$ ${value}`;
   }
 };
-const { transactionId, plan, total, currency, name, email, billingCycle, discount,originalPrice, tax } = location.state || {};
+const { transactionId, plan, planId, total, currency, name, email, billingCycle, discount,originalPrice, tax } = location.state || {};
 
 const user = JSON.parse(localStorage.getItem("user"));
 const token = localStorage.getItem("accessToken");
@@ -33,7 +33,7 @@ const activatePlan = async () => {
 
 try{
 
-await fetch("http://localhost:5000/api/auth/update-plan",{
+const response = await fetch("http://localhost:5000/api/auth/update-plan",{
 method:"POST",
 headers:{
 "Content-Type":"application/json",
@@ -41,10 +41,18 @@ headers:{
 },
 body: JSON.stringify({
 userId:user?.id,
-plan,
+plan: planId || (plan && typeof plan === 'string' ? plan.replace(/ plan/i, "").trim().toLowerCase() : "basic"),
 billingCycle
 })
 });
+
+if (response.ok) {
+  const data = await response.json();
+  if (user) {
+    user.plan = data.plan;
+    localStorage.setItem("user", JSON.stringify(user));
+  }
+}
 
 
 
