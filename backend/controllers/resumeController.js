@@ -7,8 +7,8 @@ import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import path from "path";
 
-// ✅ CONFIRMED WORKING MODEL (v1beta + generateContent)
-const GEMINI_MODEL = "gemini-2.5-flash";
+// ✅ CONFIRMED WORKING MODEL (matches quiz service)
+const GEMINI_MODEL = "gemini-1.5-flash";
 
 // ✅ Initialize Gemini safely
 const genAI = process.env.GEMINI_API_KEY
@@ -109,15 +109,21 @@ ${resumeText.slice(0, 3000)}
     // 7️⃣ Return clean response
     return res.json(parsed);
   } catch (err) {
-    // 🔴 Clean error logging (no server crash)
+    // 🔴 Detailed error logging
     console.error("❌ Resume analysis error:", {
       message: err?.message,
       status: err?.status,
       statusText: err?.statusText,
+      details: err?.response?.data || err.toString(),
     });
 
+    // Return detailed error for debugging (in development) or generic message (in production)
+    const errorMessage = process.env.NODE_ENV === "production" 
+      ? "Resume analysis failed. Please try again."
+      : `Resume analysis failed: ${err?.message}`;
+
     return res.status(500).json({
-      error: "Resume analysis failed. Please try again.",
+      error: errorMessage,
     });
   }
 };

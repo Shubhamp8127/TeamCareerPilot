@@ -83,6 +83,12 @@ const processQueue = (error, token) => {
 
 apiClient.interceptors.request.use(
   (config) => {
+    // Skip modifying headers for FormData (multipart) requests
+    if (config.data instanceof FormData) {
+      // axios will automatically handle Content-Type: multipart/form-data with boundary
+      delete config.headers["Content-Type"];
+    }
+    
     const token = getStoredAccessToken();
     if (token) {
       config.headers = config.headers || {};

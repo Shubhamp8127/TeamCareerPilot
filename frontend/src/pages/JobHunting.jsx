@@ -134,9 +134,7 @@ const interval = setInterval(() => {
   messageIndex++;
 }, 1200);
 
-    const res = await apiClient.post("/api/resume/analyze", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    const res = await apiClient.post("/api/resume/analyze", formData);
 
     clearInterval(interval);
     setProgress(100);
