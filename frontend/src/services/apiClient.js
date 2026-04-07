@@ -1,7 +1,8 @@
 import axios from "axios";
 
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || "https://teamcareerpilot.onrender.com";
+// Use relative URLs in production (both frontend and backend on same origin)
+// In development, use the environment variable if provided
+const API_BASE_URL = process.env.NODE_ENV === "production" ? "" : (process.env.REACT_APP_API_URL || "http://localhost:5000");
 const ACCESS_TOKEN_KEY = "accessToken";
 const LEGACY_TOKEN_KEY = "token";
 const USER_STORAGE_KEY = "user";
