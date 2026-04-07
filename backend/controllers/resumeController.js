@@ -7,8 +7,8 @@ import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import path from "path";
 
-// ✅ CONFIRMED WORKING MODEL (matches quiz service)
-const GEMINI_MODEL = "gemini-1.5-flash";
+// ✅ CONFIRMED WORKING MODEL
+const GEMINI_MODEL = "gemini-2.5-flash";
 
 // ✅ Initialize Gemini safely
 const genAI = process.env.GEMINI_API_KEY
