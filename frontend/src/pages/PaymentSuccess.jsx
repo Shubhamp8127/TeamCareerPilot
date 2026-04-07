@@ -4,6 +4,7 @@ import { CheckCircle, Download,PartyPopper } from "lucide-react";
 import jsPDF from "jspdf";
 import "../styles/PaymentSuccess.css";
 import { useTranslation } from "react-i18next";
+import { API_BASE_URL } from "../services/apiClient";
 
 
 export default function PaymentSuccess() {
@@ -33,7 +34,7 @@ const activatePlan = async () => {
 
 try{
 
-const response = await fetch("http://localhost:5000/api/auth/update-plan",{
+const response = await fetch(`${API_BASE_URL}/api/auth/update-plan`,{
 method:"POST",
 headers:{
 "Content-Type":"application/json",

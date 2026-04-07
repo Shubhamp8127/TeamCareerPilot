@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { API_BASE_URL } from "../services/apiClient";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -48,7 +49,7 @@ const Footer = () => {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:5000/api/subscribe", {
+      const res = await fetch(`${API_BASE_URL}/api/subscribe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
